@@ -1,7 +1,8 @@
 <template>
-    <div>
+    <div style="margin-top: 70px;">
         <app-loader v-if="show"></app-loader>
         <template v-else>
+        <app-alert :msg="alertMsg" :alertType="alertType" v-if="showAlert" class="alert_1"></app-alert>
         <div id="product">
 		<div id="itemImage">
 		     <img :src="itemDetail.cover_image">		
@@ -10,18 +11,18 @@
 		     <p id="itemName">{{itemDetail.name}}</p>
 		     <p id="itemPrice"><b>&#8377; {{itemDetail.price - ((itemDetail.price*itemDetail.discount)/100)}}</b>&nbsp; <s>&#8377; {{itemDetail.price}}</s> ( <em class="off">{{itemDetail.discount}}% OFF</em> )</p>
 		     <p id="itemDescription">{{ itemDetail.description}}</p>
-		     <button id="cart">ADD TO CART</button>		
+		     <button style="border: none;" id="cart" @click="addToCart($event, itemDetail.id)">{{user.id?buttonName:"SIGNIN TO BUY"}}</button>		
 	    </div>
 	</div>
 	<hr>
 	<h3>Some Related suggestions of products:</h3>
-	<div id="suggestion" v-for="item in similarItems" :key="item.id">
-		<div class="items">
+	<div id="suggestion" >
+		<div class="items" v-for="item in similarItems" :key="item.id">
             <img :src="item.cover_image" alt="" @click="openDetails(item.id)">
             <h4>{{item.name}}</h4>
             <p><b>&#8377; {{item.price - ((item.price*item.discount)/100)}}</b>&nbsp; <s>&#8377; {{item.price}}</s> ( <em class="off">{{item.discount}}% OFF</em> )</p>
             <div class="AddToBag">
-                <a href="">ADD TO BAG</a>
+                <button style="border: none;background-color: inherit;" @click="addToCart($event, item.id)">{{user.id?"ADD TO BAG":"SIGNIN TO BUY"}}</button>
             </div>
         </div>
 	</div>
@@ -31,20 +32,29 @@
 
 <script>
 import appLoader from "./Loader.vue"
+import appAlert from "./Alert"
 export default {
     data(){
         return{
             itemDetail: {},
             similarItems: [],
-            show: true
+            show: true,
+            alertMsg: "",
+            alertType: "",
+            showAlert: false,
+            buttonName: "ADD TO CART"
         }
     },
     components: {
-        appLoader
+        appLoader,
+        appAlert
     },
     computed: {
         id(){
             return this.$route.query.id;
+        },
+        user(){
+            return this.$store.getters.getUser;
         }
     },
     async mounted(){
@@ -61,6 +71,51 @@ export default {
         },
         openDetails(id){
             this.$router.push(`/itemdesc?id=${id}`);
+        },
+        async addToCart(e, id){
+            if(!this.user.id)
+                this.$router.push("/login");
+            else{
+                try {
+                    // this.buttonName="ADDING...";
+                    e.target.textContent = "ADDING...";
+                    const res = await fetch(`https://goodifie.herokuapp.com/api/v1/cart`, {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({product_id: id}),
+                        credentials: "include"
+                    })
+                    const resData = await res.json();
+                    if(resData.status === "success"){
+                        e.target.textContent = "ADD TO CART";
+                        this.alertMsg= "Added To Cart";
+                        this.alertType= "success";
+                        this.showAlert=true;
+                        setTimeout(()=>{
+                            this.showAlert= false;
+                        },3000)
+                    }
+                    else{
+                        // this.buttonName = "ADD TO CART";
+                        e.target.textContent = "ADD TO CART";
+                        this.alertMsg= resData.message;
+                        this.alertType= "danger";
+                        this.showAlert=true;
+                        setTimeout(()=>{
+                            this.showAlert= false;
+                        },3000)
+                    }
+                } catch (error) {
+                    // this.buttonName = "ADD TO CART";
+                    e.target.textContent = "ADD TO CART";
+                    this.alertMsg= resData.message;
+                    this.alertType= "danger";
+                    this.showAlert=true;
+                    setTimeout(()=>{
+                        this.showAlert= false;
+                    },3000)
+                }
+            }
         }
     },
     watch: {

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <router-view></router-view>
+    <router-view v-if="show"></router-view>
   </div>
 </template>
 
@@ -11,14 +11,20 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      show: false
     }
   },
   components: {
     appHeader
   },
   async mounted(){
-    await this.$store.dispatch("setUser");
+    try {
+      await this.$store.dispatch("setUser");
+      this.show=true;
+    } catch (err) {
+      this.show = true;
+    }
   }
 }
 </script>

@@ -1,6 +1,7 @@
 let DB = require("./../server");
 const { returnErr } = require("../utils/error");
 let multer= require("multer");
+let cloudinary= require("./../utils/cloudinaryConfig");
 
 const multerStorage= multer.diskStorage({
     destination:(req,file,cb)=>{
@@ -32,7 +33,11 @@ exports.uploadProductPhotos= upload.fields([
 ]);
 
 exports.getProducts = (req,res,next)=>{
-    const Q = "select cover_image, id, category, price from products order by created_at";
+    let Q;
+    Q = "select cover_image, id, category, price, discount, name from products order by created_at";
+    if(req.query.category){
+        Q = `select cover_image, id, category, price, discount from products where category='${req.query.category.toLowerCase()}' order by created_at`
+    }
     DB.query(Q, (err, result, fields)=>{
         if(err) returnErr(err,500, res);
         else{
@@ -62,15 +67,21 @@ exports.createProduct = (req, res, next)=>{
     const product = {
         shopkeeper_id: req.currentUser.id,
         name: req.body.name,
-        category: req.body.category,
+        category: req.body.category.toLowerCase(),
         price: req.body.price * 1,
         images: req.body.images,
-        cover_image: req.body.cover_image
+        cover_image: req.body.cover_image,
+        discount: req.body.discount * 1,
+        description: req.body.description
     }
     const Q= "insert into products set ?";
     DB.query(Q, product, (err, result)=>{
         if(err) returnErr(err, 400, res);
-        else{        
+        else{     
+            cloudinary.uploads(req.files.cover_image[0].path, result.insertId).then(result1=>{
+                console.log(result1.url);
+                DB.query("update products set cover_image=? where id=?", [result1.url, result1.blog_id]);
+            })   
             res.status(201).json({
                 status: "success",
                 data: product
@@ -81,17 +92,23 @@ exports.createProduct = (req, res, next)=>{
 
 
 exports.getProductDetails = (req, res, next)=>{
-    const Q = "select * from products where id=?";
+    const Q = "select * from products where id=?;";
     DB.query(Q, req.params.id, (err, result, fields)=>{
         if(err) returnErr(err, 400, res);
-        else{        
-            res.status(201).json({
-                status: "success",
-                data: {
-                    ...result[0],
-                    images: result[0].images.split("$!end!$")
+        else{
+            DB.query(`select cover_image, id, category, price, name, discount from products where category='${result[0].category}' and id!='${result[0].id}' order by created_at limit 5`, (err, res1)=>{
+                if(err) returnErr(err, 400, res);
+                else{
+                    res.status(201).json({
+                        status: "success",
+                        data: {
+                            ...result[0],
+                            images: result[0].images?result[0].images.split("$!end!$"): null,
+                            similarItems: res1
+                        }
+                    })
                 }
-            })
+            })        
         }
     })
 }

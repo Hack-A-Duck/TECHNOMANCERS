@@ -61,7 +61,7 @@ exports.signup= (req,res,next)=>{
 }
 
 exports.signin= (req, res, next)=>{
-    let Q="select name,email, password, number from users where email= ?";
+    let Q="select id,name,email, password, number from users where email= ?";
     DB.query(Q, req.body.email, async (err, result, fields)=>{
         if(err) returnErr(err, 500, res);
 
@@ -70,7 +70,7 @@ exports.signin= (req, res, next)=>{
 
         else{
             if(await comparePassword(req.body.password, result[0].password))
-                sendJwtToken({name: result[0].name, email: result[0].email, number: result[0].number}, res, 200);
+                sendJwtToken({name: result[0].name, email: result[0].email, number: result[0].number, id: result[0].id}, res, 200);
             else
                 returnErr(new Error("incorrect password!!!"), 404, res);
         }

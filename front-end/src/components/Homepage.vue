@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div  style="margin-top: 56px;">
         <!-- <div class="container"> -->
   
 <!-- </div> -->
@@ -38,27 +38,27 @@
 
       <div class="col-4">
         <div class="card mb-2 ">
-          <img class="card-img-top" src="/src/assets/oils.jpg" alt="Card image cap">
+          <router-link to="/items?category=covid essentials"><img class="card-img-top" height="250" width="150" src="/src/assets/covid-essentials.jpg" alt="Card image cap"></router-link>
           <div class="card-body">
-            <h3 class="card-text">Essential Oils</h3>
+            <h3 class="card-text">Covid Essential</h3>
           </div>
         </div>
       </div>
 
       <div class="col-4">
         <div class="card mb-2">
-          <img class="card-img-top" src="/src/assets/flo.jpg" alt="Card image cap">
+          <router-link to="/items?category=electronics"><img class="card-img-top" height="250" width="150" src="/src/assets/electronics.jpg" alt="Card image cap"></router-link>
             <div class="card-body">
-            <h3 class="card-text">Bouquets</h3>
+            <h3 class="card-text">Electronics</h3>
             </div>
         </div>
       </div>
 
       <div class="col-4">
         <div class="card mb-2">
-          <img class="card-img-top" src="/src/assets/led.jpg" alt="Card image cap">
+          <router-link to="/items?category=first aid"><img class="card-img-top" height="250" width="150" src="/src/assets/first-aid.jpg" alt="Card image cap"></router-link>
             <div class="card-body">
-            <h3 class="card-text">Led Lights</h3>
+            <h3 class="card-text">Health Care</h3>
             </div>
         </div>
       </div>
@@ -69,27 +69,27 @@
 
         <div class="col-4">
           <div class="card mb-2">
-            <img class="card-img-top" src="/src/assets/cake.jpg" alt="Card image cap">
+            <router-link to="/items?category=food essentials"><img class="card-img-top" height="250" width="150" src="/src/assets/food.jpg" alt="Card image cap"></router-link>
             <div class="card-body">
-              <h3 class="card-text">Cakes</h3>
+              <h3 class="card-text">Food Essentials</h3>
             </div>
           </div>
         </div>
 
         <div class="col-4">
           <div class="card mb-2">
-            <img class="card-img-top" src="/src/assets/sweets.jpg" alt="Card image cap">
+            <router-link to="/items?category=grooming and beauty"><img class="card-img-top" height="250" width="150" src="/src/assets/grooming.jpg" alt="Card image cap"></router-link>
             <div class="card-body">
-              <h3 class="card-text">Sweets</h3>
+              <h3 class="card-text">Grooming and Beauty</h3>
             </div>
           </div>
         </div>
 
         <div class="col-4">
           <div class="card mb-2">
-            <img class="card-img-top" src="/src/assets/plant.jpg" alt="Card image cap">
+            <router-link to="/items?category=stationery"><img class="card-img-top" height="250" width="150" src="/src/assets/stationary.jpg" alt="Card image cap"></router-link>
             <div class="card-body">
-              <h3 class="card-text">Plants</h3>
+              <h3 class="card-text">Stationery</h3>
             </div>
           </div>
         </div>
@@ -245,7 +245,7 @@ p {
   width: 90%;
 }
 .diya:hover{
-  opacity: 90%;
+  opacity: 0.7;
 }
 .mid-icons:hover{
    color:#ff9a8c;
@@ -258,7 +258,7 @@ p {
   background-color: #ffd5cd;
 }
 .card:hover{
-  opacity: 75%;
+  opacity: 0.7;
   box-shadow: 5px 5px 5px grey;
 }
 .social-icon{

@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" style="position: fixed">
   <div class="container-fluid">
       <div class="col-6">
         <router-link to="/">
@@ -24,9 +24,9 @@
           Profile</a>
           <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
             <router-link to="/account" v-if="user.id">
-              <img id="profile" src="/src/assets/profile.png" alt=""> {{user.name.split(" ")[0]}}
+              <img id="profile" src="/src/assets/profile.jpg" alt=""> {{user.name.split(" ")[0]}}
             </router-link>
-            <button v-if="user.id" class="nav-link" @click="logout()">Logout</button>
+            <button v-if="user.id" class="nav-link" @click="logout()" style="background-color: inherit; border: none">Logout</button>
             <template v-else>
                 <router-link to="/signup" class="nav-link" ><i class="fas fa-user"></i> Sign Up</router-link>
                 <router-link to="/login" class="nav-link"><i class="fas fa-sign-in-alt"></i> Login</router-link>
@@ -35,6 +35,9 @@
       </li>
        <li class="nav-item" v-if="user.id">
          <router-link to="/orders" class="nav-link">Orders</router-link>
+       </li>
+       <li class="nav-item" v-if="user.id">
+         <router-link to="/checkout" class="nav-link">Cart</router-link>
        </li>
        <!-- <li class="nav-item">
          <router-link to="/orders" class="nav-link">Contact</router-link>
@@ -77,8 +80,9 @@ export default {
 }
 #profile
 {
-  width: 50px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 #navbarDropdown{
   text-align: left;
