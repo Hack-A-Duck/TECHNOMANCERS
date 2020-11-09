@@ -36,7 +36,7 @@ exports.getProducts = (req,res,next)=>{
     let Q;
     Q = "select cover_image, id, category, price, discount, name from products order by created_at";
     if(req.query.category){
-        Q = `select cover_image, id, category, price, discount from products where category='${req.query.category.toLowerCase()}' order by created_at`
+        Q = `select cover_image, id, category, price, discount, name from products where category='${req.query.category.toLowerCase()}' order by created_at`
     }
     DB.query(Q, (err, result, fields)=>{
         if(err) returnErr(err,500, res);

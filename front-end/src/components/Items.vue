@@ -125,7 +125,7 @@ export default {
             padding: 5px;
             border: 1px solid rgb(182, 171, 171);
             margin: 5px;
-            min-width: 24%;
+            /* min-width: 24%; */
         }
 
         .items h4{

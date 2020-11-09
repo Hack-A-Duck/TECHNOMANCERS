@@ -32,14 +32,14 @@
             <div class="price-detail-left">
                 <p>Total MRP : </p>
                 <p>Discount on MRP : </p>
-                <p><b>Total Amount</b></p>
+                <p><b>Total Amount : </b></p>
             </div>
             <div class="price-detail-right">
                 <p>&#8377; {{calculatePrice.toFixed(2)}}</p>
                 <p>- <em class="off">&#8377; {{discountPrice.toFixed(2)}}</em></p>
                 <p><b>&#8377; {{finalPrice.toFixed(2)}}</b></p>
             </div>
-            <div><button id="place-order">PLACE ORDER</button></div>
+            <div><button id="place-order" @click="goToAddAddress">PLACE ORDER</button></div>
         </div>
     </div>
     </div>
@@ -137,6 +137,9 @@ export default {
                     },3000)
                     console.log(error);
             }
+        },
+        goToAddAddress(){
+            this.$router.push("/add_address");
         }
     }
 }
