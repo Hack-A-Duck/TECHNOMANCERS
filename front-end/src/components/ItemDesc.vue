@@ -20,7 +20,7 @@
 		<div class="items" v-for="item in similarItems" :key="item.id">
             <img :src="item.cover_image" alt="" @click="openDetails(item.id)">
             <h4>{{item.name}}</h4>
-            <p><b>&#8377; {{item.price - ((item.price*item.discount)/100)}}</b>&nbsp; <s>&#8377; {{item.price}}</s> ( <em class="off">{{item.discount}}% OFF</em> )</p>
+            <p style="text-align: center"><b>&#8377; {{item.price - ((item.price*item.discount)/100)}}</b>&nbsp; <s>&#8377; {{item.price}}</s> ( <em class="off">{{item.discount}}% OFF</em> )</p>
             <div class="AddToBag">
                 <button style="border: none;background-color: inherit;" @click="addToCart($event, item.id)">{{user.id?"ADD TO BAG":"SIGNIN TO BUY"}}</button>
             </div>

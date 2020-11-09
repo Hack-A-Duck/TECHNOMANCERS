@@ -1,5 +1,5 @@
 <template>
-<div style="text-align: center">
+<div style="text-align: center;margin-top: 56px">
     <app-alert :msg="alertMsg" :alertType="alertType" v-if="showAlert"></app-alert>
     <div class="container-fluid">
             <div class="top"></div>
@@ -11,6 +11,9 @@
                 <input type="password" placeholder="Password" required v-model="password"/>
                 <input type="submit" value="Login">
             </form>
+            <div style="text-align: center">
+                <router-link to="/signup">SIGN UP</router-link>
+            </div>
             <h2>&nbsp;</h2>
             </div>
         </div>

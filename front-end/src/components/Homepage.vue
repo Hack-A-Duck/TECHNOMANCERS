@@ -35,8 +35,8 @@
     <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
   <div class="carousel-inner" role="listbox">
     <div class="carousel-item active">
-
-      <div class="col-4">
+            <div class= "row">
+      <div class="col-sm-4">
         <div class="card mb-2 ">
           <router-link to="/items?category=covid essentials"><img class="card-img-top" height="250" width="150" src="/src/assets/covid-essentials.jpg" alt="Card image cap"></router-link>
           <div class="card-body">
@@ -44,8 +44,9 @@
           </div>
         </div>
       </div>
-
-      <div class="col-4">
+            </div>
+        <div class= "row">
+      <div class="col-sm-4">
         <div class="card mb-2">
           <router-link to="/items?category=electronics"><img class="card-img-top" height="250" width="150" src="/src/assets/electronics.jpg" alt="Card image cap"></router-link>
             <div class="card-body">
@@ -53,8 +54,9 @@
             </div>
         </div>
       </div>
-
-      <div class="col-4">
+        </div>
+        <div class= "row">
+      <div class="col-sm-4">
         <div class="card mb-2">
           <router-link to="/items?category=first aid"><img class="card-img-top" height="250" width="150" src="/src/assets/first-aid.jpg" alt="Card image cap"></router-link>
             <div class="card-body">
@@ -62,12 +64,13 @@
             </div>
         </div>
       </div>
+        </div>
 
     </div>
 
     <div class="carousel-item">
-
-        <div class="col-4">
+            <div class= "row">
+        <div class="col-sm-4">
           <div class="card mb-2">
             <router-link to="/items?category=food essentials"><img class="card-img-top" height="250" width="150" src="/src/assets/food.jpg" alt="Card image cap"></router-link>
             <div class="card-body">
@@ -75,8 +78,9 @@
             </div>
           </div>
         </div>
-
-        <div class="col-4">
+            </div>
+        <div class= "row">
+        <div class="col-sm-4">
           <div class="card mb-2">
             <router-link to="/items?category=grooming and beauty"><img class="card-img-top" height="250" width="150" src="/src/assets/grooming.jpg" alt="Card image cap"></router-link>
             <div class="card-body">
@@ -84,14 +88,16 @@
             </div>
           </div>
         </div>
-
-        <div class="col-4">
+        </div>
+        <div class= "row">
+        <div class="col-sm-4">
           <div class="card mb-2">
             <router-link to="/items?category=stationery"><img class="card-img-top" height="250" width="150" src="/src/assets/stationary.jpg" alt="Card image cap"></router-link>
             <div class="card-body">
               <h3 class="card-text">Stationery</h3>
             </div>
           </div>
+        </div>
         </div>
 
 

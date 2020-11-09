@@ -7,8 +7,8 @@
         <p> <b id="bag">Bag</b> ------- Address ------- Payment</p>
         <img class="head_image" src="/src/assets/secure.jpg" alt="">
     </div>
-
-    <div class="center">
+    <h1 v-if="cartItem.length==0" style="text-align: center">No Items in the cart.</h1>
+    <div class="center" v-if="cartItem.length!=0">
         <div class="left">
             <h3>My Shopping Bag</h3>
             <div id="left-center" v-for="item in cartItem" :key="item.id">
@@ -104,7 +104,7 @@ export default {
 
                 const res = await fetch(`https://goodifie.herokuapp.com/api/v1/cart/${id}`,{
                     method: "DELETE",
-                    credentials: "include".toFixed(2)
+                    credentials: "include"
                 })
                 const resData = await res.json();
                 if(resData.status==="success"){

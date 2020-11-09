@@ -1,8 +1,8 @@
 <template>
-    <div class="signup_container" style="backgroundImage: url('/src/assets/background.png')">
+    <div class="signup_container" style="backgroundImage: url('/src/assets/background.png');margin-top: 56px">
     <app-alert :msg="alertMsg" :alertType="alertType" v-if="showAlert"></app-alert>
         <h1>SIGN UP</h1>
-    <form class="center" style="width: 40%;margin: auto" @submit.prevent="signupHandler()">
+    <form class="center signup_form" @submit.prevent="signupHandler()">
 
         <div>
             <label for="name">FULL NAME</label>
@@ -103,8 +103,19 @@ export default {
 </script>
 
 <style scoped>
+.signup_form{
+    width: 40%;
+    margin: auto;
+}
+
+@media screen and (max-width: 768px){
+    .signup_form{
+        width: 95%;
+    }
+}
+
 .signup_container{
-    width: 100%;
+    /* width: 100%; */
     margin: auto;
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
@@ -112,7 +123,7 @@ export default {
     padding: 15px;
     /* background-image: url(background.png); */
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
     background-attachment: fixed
 }
 h1 {
