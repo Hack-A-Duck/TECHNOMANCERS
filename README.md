@@ -3,12 +3,13 @@
 #TECHNOMANCERS
 
 Team Members
-*Gagan Kumar Soni
-*Garima Pandey
-*Swayam Gupta
-*Akshita Gupta
+1. Gagan Kumar Soni
+2. Garima Pandey
+3. Swayam Gupta
+4. Akshita Gupta
 
 Live deployment link of netlify :- https://goodifie.netlify.app/
+
 Link for the video :- https://drive.google.com/file/d/18D_RtiE7WRLw-Mj9uiAZgA2GvNo1r1h8/view?usp=sharing
 
 THEME-1: 
