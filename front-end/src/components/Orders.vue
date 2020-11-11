@@ -3,6 +3,8 @@
     <div v-else style="margin-top: 80px">
 
         <h2>MY ORDERS</h2>
+        <br>
+        <h1 v-if="items.length==0" style="text-align: center">No Previous Orders.</h1>
 
     <div class="order_container" v-for="item in items" :key="item.id">
         <div id="image" class="items">

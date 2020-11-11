@@ -4,7 +4,7 @@
       <div class="col-6">
         <router-link to="/">
           <img id="brandlogo" src="/src/assets/logo2.png" alt="logo">
-          Infigood
+          GOODIFIE
         </router-link>
       </div>
 
@@ -87,10 +87,11 @@ export default {
 #navbarDropdown{
   text-align: left;
 }
+
 #brandlogo
 {
-  width:15%;
-  height: 15%;
+  width:30px;
+  height: 28px;
 }
 
 #top-container

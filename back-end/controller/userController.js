@@ -15,7 +15,7 @@ exports.getUsers= (req,res,next)=>{
 }
 
 exports.me= (req,res,next)=>{
-    DB.query("select id,name, email, role from users where id=?;select * from products where shopkeeper_id=?", [req.currentUser.id,req.currentUser.id], (err, result, fields)=>{
+    DB.query("select id,name, email, role, number from users where id=?;select * from products where shopkeeper_id=?", [req.currentUser.id,req.currentUser.id], (err, result, fields)=>{
         if(err) returnErr(err, 500, res);
         else{
             res.status(200).json({

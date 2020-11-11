@@ -106,15 +106,16 @@ export default {
     methods: {
         async orderHandler(){
             this.buttonName = "CONFIRMING";
+            document.getElementById("add").pointerEvents = true;
             const orders = this.cartItem.map((el)=>{
                 return {
                     product_id: el.product_id,
                     address: this.formData.address,
                     pincode: this.formData.pincode,
-                    city: this.formData.city + this.formData.state
+                    city: this.formData.city + ", " + this.formData.state
                 }
             })
-            console.log(orders);
+            // console.log(orders);
             try {
                 const res = await fetch(`https://goodifie.herokuapp.com/api/v1/orders`, {
                     method: "POST",
@@ -141,6 +142,7 @@ export default {
                     setTimeout(()=>{
                         this.showAlert= false;
                     },3000)
+                    document.getElementById("add").pointerEvents = false;
                 }
             } catch (error) {
                 this.buttonName= "CONFIRM ORDER";
@@ -150,6 +152,7 @@ export default {
                 setTimeout(()=>{
                     this.showAlert= false;
                 },3000)
+                document.getElementById("add").pointerEvents = false;
             }
         }
     }

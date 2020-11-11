@@ -1,43 +1,43 @@
 <template>
     <div class="signup_container" style="backgroundImage: url('/src/assets/background.png');margin-top: 56px">
     <app-alert :msg="alertMsg" :alertType="alertType" v-if="showAlert"></app-alert>
-        <h1>SIGN UP</h1>
+        <h1 class="h1">SIGN UP</h1>
     <form class="center signup_form" @submit.prevent="signupHandler()">
 
         <div>
-            <label for="name">FULL NAME</label>
+            <label for="name" class="h5">FULL NAME</label>
             <input type="text" name="first" placeholder="Name" v-model="formData.name" required>
         </div>
 
         <div id="email">
-            <label for="Email">E-MAIL ID</label>
+            <label for="Email" class="h5">E-MAIL ID</label>
             <input type="email" name="Email" v-model="formData.email" required><br>
         </div>
 
         <div id="num">
-            <label for="num">PHONE NUMBER</label>
+            <label for="num" class="h5">PHONE NUMBER</label>
             <input type="tel" name="num" v-model="formData.number" required>
         </div>
-        
+
         <div id="pass">
-            <label for="Password">PASSWORD</label>
+            <label for="Password" class="h5">PASSWORD</label>
             <input type="password" name="Password" v-model="formData.password" required><br>
         </div>
 
         <div id="cpass">
-            <label for="cPassword">CONFIRM PASSWORD</label>
+            <label for="cPassword" class="h5">CONFIRM PASSWORD</label>
             <input type="password" name="cPassword" v-model="formData.confirmPassword" required><br>
         </div>
-        
+
         <div id="rem">
             <input type="checkbox" name="rem">
             <label for="rem">Remember Me !</label>
         </div>
-         
+
         <div>
-            <p>By creating an account you agree to our <a href="">Terms & Privacy</a></p>
+            <p class="p">By creating an account you agree to our <a href="">Terms & Privacy</a></p>
         </div>
-    
+
         <button id="login" type="submit">SIGN UP</button>
     </form>
     </div>
@@ -69,7 +69,7 @@ export default {
                 const res = await fetch("https://goodifie.herokuapp.com/api/v1/users/signup", {
                 method: "POST",
                 headers: {"Content-Type" : "application/json"},
-                body: JSON.stringify(this.formData)    
+                body: JSON.stringify(this.formData)
                 });
                 const resData = await res.json();
                 if(resData.status==="success"){
@@ -96,7 +96,7 @@ export default {
                         this.showAlert=false;
                     },3000)
             }
-            
+
         }
     }
 }
@@ -142,13 +142,13 @@ h1 {
     border: none;
     background: #f1f1f1;
   }
-  
+
   input[type=text]:focus,input[type=email]:focus,input[type=tel]:focus, input[type=password]:focus {
     background-color: #ddd;
     outline: none;
   }
   button {
-    background-color: #4CAF50;
+    background-color: #3dc4ce;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -157,10 +157,13 @@ h1 {
     width: 100%;
     opacity: 0.9;
   }
-  
+
   button:hover {
     opacity:1;
+    background-color: #50c493;
+
   }
+
   #rem{
       text-align: center;
   }

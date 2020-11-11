@@ -1,7 +1,7 @@
 <template>
     <div  style="margin-top: 56px;">
         <!-- <div class="container"> -->
-  
+
 <!-- </div> -->
 
   <div id="top-container">
@@ -17,7 +17,13 @@
         <img class="d-block w-100" src="/src/assets/post2.png" alt="Third slide">
       </div>
       <div class="carousel-item">
-        <img class="d-block w-100" src="/src/assets/post4.png" alt="Third slide">
+        <img class="d-block w-100" src="/src/assets/post4.png" alt="Fourth slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="/src/assets/carousel5.png" alt="Fifth slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="/src/assets/carousel6.png" alt="Sixth slide">
       </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -30,68 +36,63 @@
     </a>
   </div>
   </div>
-  <div id="categories-container">
+  <div id="categories-container" style="backgroundImage: url('/src/assets/categories-container.png'); background-size:cover;">
     <h1>Browse By Categories..</h1>
     <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
   <div class="carousel-inner" role="listbox">
     <div class="carousel-item active">
             <div class= "row">
-      <div class="col-sm-4">
-        <div class="card mb-2 ">
+      <div class="col-sm-4 ">
+        <div class="card mb-2 mx-auto ">
           <router-link to="/items?category=covid essentials"><img class="card-img-top" height="250" width="150" src="/src/assets/covid-essentials.jpg" alt="Card image cap"></router-link>
           <div class="card-body">
             <h3 class="card-text">Covid Essential</h3>
           </div>
         </div>
       </div>
-            </div>
-        <div class= "row">
+
       <div class="col-sm-4">
-        <div class="card mb-2">
+        <div class="card mb-2 mx-auto">
           <router-link to="/items?category=electronics"><img class="card-img-top" height="250" width="150" src="/src/assets/electronics.jpg" alt="Card image cap"></router-link>
             <div class="card-body">
             <h3 class="card-text">Electronics</h3>
             </div>
         </div>
       </div>
-        </div>
-        <div class= "row">
+
       <div class="col-sm-4">
-        <div class="card mb-2">
-          <router-link to="/items?category=first aid"><img class="card-img-top" height="250" width="150" src="/src/assets/first-aid.jpg" alt="Card image cap"></router-link>
+        <div class="card mb-2 mx-auto">
+          <router-link to="/items?category=health care"><img class="card-img-top" height="250" width="150" src="/src/assets/first-aid.jpg" alt="Card image cap"></router-link>
             <div class="card-body">
             <h3 class="card-text">Health Care</h3>
             </div>
         </div>
       </div>
-        </div>
+    </div>
 
     </div>
 
     <div class="carousel-item">
             <div class= "row">
         <div class="col-sm-4">
-          <div class="card mb-2">
+          <div class="card mb-2 mx-auto">
             <router-link to="/items?category=food essentials"><img class="card-img-top" height="250" width="150" src="/src/assets/food.jpg" alt="Card image cap"></router-link>
             <div class="card-body">
               <h3 class="card-text">Food Essentials</h3>
             </div>
           </div>
         </div>
-            </div>
-        <div class= "row">
         <div class="col-sm-4">
-          <div class="card mb-2">
+          <div class="card mb-2 mx-auto">
             <router-link to="/items?category=grooming and beauty"><img class="card-img-top" height="250" width="150" src="/src/assets/grooming.jpg" alt="Card image cap"></router-link>
             <div class="card-body">
               <h3 class="card-text">Grooming and Beauty</h3>
             </div>
           </div>
         </div>
-        </div>
-        <div class= "row">
+
         <div class="col-sm-4">
-          <div class="card mb-2">
+          <div class="card mb-2 mx-auto">
             <router-link to="/items?category=stationery"><img class="card-img-top" height="250" width="150" src="/src/assets/stationary.jpg" alt="Card image cap"></router-link>
             <div class="card-body">
               <h3 class="card-text">Stationery</h3>
@@ -150,8 +151,10 @@
 
 
 
-    <p>Toll-Free No 1800 XXXXXX</p>
-    <p>© Copyright 2020 Infigood</p>
+    <p class="Team">Toll-Free No 1800 XXXXXX</p>
+    <p class="Team">© Copyright 2020 GOODIFIE</p>
+   <img src="/src/assets/technomancers.png" style="width:300px; flex:left;" alt="">
+   
   </div>
 </footer>
     </div>
@@ -159,12 +162,12 @@
 
 <script>
 export default {
-    
+
 }
 </script>
 
 <style scoped>
-    .navbar
+.navbar
 {
   position: relative;
 }
@@ -202,7 +205,10 @@ export default {
 
 }
 #categories-container{
-  padding: 1% 0 3%;
+  padding: 1% auto 3%;
+  display: block;
+  text-align: center;
+
 }
 #footer{
   padding: 5% 10%;
@@ -217,6 +223,7 @@ export default {
 }
 h1{
   text-align: center;
+  margin-bottom: 2%;
   font-family: 'Pacifico', cursive;
 }
 .mid-icons
@@ -257,11 +264,20 @@ p {
    color:#ff9a8c;
 }
 .card-deck{
+  text-align: center;
   padding: 2% 3%;
   margin: 2% 3%;
 }
 .card {
   background-color: #ffd5cd;
+  width: 20rem;
+}
+.col-sm-4
+{
+text-align: center;
+}
+.row{
+  text-align: center;
 }
 .card:hover{
   opacity: 0.7;
@@ -277,5 +293,7 @@ color:#555555;
   text-decoration: none;
   cursor: default;
 }
-
+.Team{
+  font-size: 15px;
+}
 </style>

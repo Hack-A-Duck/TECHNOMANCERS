@@ -4,10 +4,24 @@ let cookieParser= require("cookie-parser");
 let userRouter = require("./router/userRouter")
 let productRouter = require("./router/productRouter")
 let orderRouter = require("./router/orderRouter");
-let cartRouter = require("./router/cartRouter")
+let cartRouter = require("./router/cartRouter");
 let app= express();
 
-app.use(cors({origin: true, credentials: true}));
+// app.use(cors({origin: true, credentials: true}))
+
+var whitelist = ['https://goodifie.netlify.app', 'http://localhost:8080', 'http://localhost'];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }, 
+  credentials: true
+
+}
+app.use(cors(corsOptions))
 
 app.use(cookieParser());
 

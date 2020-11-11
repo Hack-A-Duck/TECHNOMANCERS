@@ -11,18 +11,22 @@
     <div class="center" v-if="cartItem.length!=0">
         <div class="left">
             <h3>My Shopping Bag</h3>
-            <div id="left-center" v-for="item in cartItem" :key="item.id">
+            <div id="left-center" v-for="item in uniqueItems" :key="item.id">
                 <div>
                 <img :src="item.cover_image" alt="" height="200px" width="200px" id="left-center-material">
                 </div>
 
                 <div id="left-center-right">
                     <h4>{{item.name}}</h4>
-                    <p><b>&#8377; {{item.price - ((item.price*item.discount)/100)}}</b>&nbsp; <s>&#8377; {{item.price}}</s> ( <em class="off">{{item.discount}}% OFF</em> )</p>
-                    <div class="remove-add">
-                        <button style="border: none;background-color: inherit;color: blue" @click="deleteItem($event, item.id)">DELETE ITEM</button>|
-                        <router-link :to="'/itemdesc?id='+item.id">VIEW DETAILS</router-link>
-                    </div>                    
+                    <p class="h5"><b>&#8377; {{item.price - ((item.price*item.discount)/100)}}</b>&nbsp; <s>&#8377; {{item.price}}</s> ( <em class="off">{{item.discount}}% OFF</em> )</p>
+                    <p class="h6">Quantity : <button @click="addToCart($event, item.product_id)">+ </button> <b>{{countProducts[item.product_id]}}</b> <button @click="deleteItem($event, item.id)"> -</button></p>
+                    <br>
+                    <div>
+                        <button class="place-order" style=" min-width:200px;" @click="openDetails(item.product_id)">
+                            VIEW DETAILS
+                        <!-- <router-link style="color: white; background-color:  rgb(231, 114, 114) ; padding: 10px 20px;border-radius: 8px" @click="openDetails(item.product_id)">VIEW DETAILS</router-link> -->
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -39,7 +43,7 @@
                 <p>- <em class="off">&#8377; {{discountPrice.toFixed(2)}}</em></p>
                 <p><b>&#8377; {{finalPrice.toFixed(2)}}</b></p>
             </div>
-            <div><button id="place-order" @click="goToAddAddress">PLACE ORDER</button></div>
+            <div><button class="place-order" @click="goToAddAddress">PLACE ORDER</button></div>
         </div>
     </div>
     </div>
@@ -56,6 +60,7 @@ export default {
             alertMsg: "",
             alertType: "",
             showAlert: false,
+            countProducts: {}
         }
     },
     computed: {
@@ -78,29 +83,98 @@ export default {
         },
         finalPrice(){
             return this.calculatePrice - this.discountPrice;
+        },
+        uniqueItems(){
+            const productIds = [];
+            return this.cartItem.filter(el=>{
+                const index = productIds.findIndex(curr=>curr==el.product_id);
+                if(index === -1){
+                    this.countProducts[`${el.product_id}`] = 1;
+                    productIds.push(el.product_id);
+                    return true;
+                }
+                else{
+                    this.countProducts[`${el.product_id}`]++;
+                    return false;
+                }
+
+            }
+            )
         }
 
     },
     async mounted() {
-        if(!this.user.id)
-            this.$router.push("/");
-        else{
-            const res = await fetch(`https://goodifie.herokuapp.com/api/v1/cart/${this.user.id}`, {credentials: "include"});
-            const resData = await res.json();
-            console.log(resData);
-            this.cartItem= resData.data;
-            this.show=false;
-        }
-        
+        await this.__created();
+
     },
     components: {
         appLoader,
         appAlert
     },
     methods: {
+        openDetails(id){
+            this.$router.push(`/itemdesc?id=${id}`);
+        },
+        async __created(){
+            if(!this.user.id)
+            this.$router.push("/");
+            else{
+                const res = await fetch(`https://goodifie.herokuapp.com/api/v1/cart/${this.user.id}`, {credentials: "include"});
+                const resData = await res.json();
+                // console.log(resData);
+                this.cartItem= resData.data;
+                this.show=false;
+                // console.log(this.uniqueItems);
+                // console.log(this.countProducts);
+            }
+        },
+        async addToCart(e, id){
+                try {
+                    // this.buttonName="ADDING...";
+                    e.target.disabled = true;
+                    const res = await fetch(`https://goodifie.herokuapp.com/api/v1/cart`, {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({product_id: id}),
+                        credentials: "include"
+                    })
+                    const resData = await res.json();
+                    if(resData.status === "success"){
+                        this.countProducts[`${id}`]++;
+                        await this.__created();
+                        e.target.disabled = false;
+                        // this.alertMsg= "Added To Cart";
+                        // this.alertType= "success";
+                        // this.showAlert=true;
+                        // setTimeout(()=>{
+                        //     this.showAlert= false;
+                        // },3000)
+
+                    }
+                    else{
+                        // this.buttonName = false;
+                        e.target.disabled = false;
+                        this.alertMsg= resData.message;
+                        this.alertType= "danger";
+                        this.showAlert=true;
+                        setTimeout(()=>{
+                            this.showAlert= false;
+                        },3000)
+                    }
+                } catch (error) {
+                    // this.buttonName = false;
+                    e.target.disabled = false;
+                    this.alertMsg= resData.message;
+                    this.alertType= "danger";
+                    this.showAlert=true;
+                    setTimeout(()=>{
+                        this.showAlert= false;
+                    },3000)
+                }
+        },
         async deleteItem(e, id){
             try {
-                e.target.textContent = "DELETING";
+                e.target.disabled = true;
 
                 const res = await fetch(`https://goodifie.herokuapp.com/api/v1/cart/${id}`,{
                     method: "DELETE",
@@ -108,18 +182,18 @@ export default {
                 })
                 const resData = await res.json();
                 if(resData.status==="success"){
-                    e.target.textContent = "DELETE ITEM";
+                    e.target.disabled = false;
                     let index = this.cartItem.findIndex(el=>el.id == id);
                     this.cartItem.splice(index, 1);
-                    this.alertMsg= "Item Deleted...";
-                    this.alertType= "success";
-                    this.showAlert=true;
-                    setTimeout(()=>{
-                        this.showAlert= false;
-                    },3000)
+                    // this.alertMsg= "Item Deleted...";
+                    // this.alertType= "success";
+                    // this.showAlert=true;
+                    // setTimeout(()=>{
+                    //     this.showAlert= false;
+                    // },3000)
                 }
                 else{
-                    e.target.textContent = "DELETE ITEM";
+                    e.target.disabled = false;
                     this.alertMsg= "Something went wrong!";
                     this.alertType= "success";
                     this.showAlert=true;
@@ -128,7 +202,7 @@ export default {
                     },3000)
                 }
             } catch (error) {
-                e.target.textContent = "DELETE ITEM";
+                e.target.disabled = false;
                     this.alertMsg= "Something went wrong!";
                     this.alertType= "success";
                     this.showAlert=true;
@@ -227,28 +301,30 @@ a{
     padding-right: 10px;
 }
 
-#place-order{
-    display: block;
+.place-order{
+  text-decoration: none;
     width: 60%;
     /* font-weight: bold; */
     color:white;
     font-size: 18px;
     background-color: rgb(231, 114, 114);
-    float: right;
+    /* float: right; */
     margin: 5px;
     padding: 5px;
     outline: none;
     border: 2px solid rgb(218, 156, 156);
     border-radius: 8px;
 }
-
+.place-order:hover{
+  background-color:rgb(218, 156, 156) ;
+}
 #footer-gallery{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     /* border: 1px solid rgb(182, 171, 171); */
     background-color: pink;
-    padding: 5px;    
+    padding: 5px;
 }
 
 .gallery-items{

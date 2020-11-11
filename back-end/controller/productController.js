@@ -96,6 +96,9 @@ exports.getProductDetails = (req, res, next)=>{
     DB.query(Q, req.params.id, (err, result, fields)=>{
         if(err) returnErr(err, 400, res);
         else{
+            if(!result[0].id)
+                returnErr(new Error("invalid id!", 400,res));
+            else{
             DB.query(`select cover_image, id, category, price, name, discount from products where category='${result[0].category}' and id!='${result[0].id}' order by created_at limit 5`, (err, res1)=>{
                 if(err) returnErr(err, 400, res);
                 else{
@@ -108,7 +111,8 @@ exports.getProductDetails = (req, res, next)=>{
                         }
                     })
                 }
-            })        
+            })
+            }        
         }
     })
 }

@@ -23,7 +23,6 @@
 <script>
 import appAlert from "./Alert";
 export default {
-
     data(){
         return {
             email: "",
@@ -36,7 +35,6 @@ export default {
     components: {
         appAlert
     },
-
     methods: {
         async loginHandler(){
             try {
@@ -78,8 +76,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 .container-fluid {
   position: absolute;
   width: 100vw;
@@ -95,7 +91,6 @@ export default {
   opacity: 1;
   transition-delay: 0.2s;
 }
-
 .top:before, .top:after, .bottom:before, .bottom:after {
   content: '';
   display: block;
@@ -111,7 +106,6 @@ export default {
   opacity: 0.65;
   transition-delay: 0.2s;
 }
-
 .top:before {
   transform: rotate(45deg);
   background: #e46569;
@@ -120,7 +114,6 @@ export default {
   transform: rotate(135deg);
   background: #ecaf81;
 }
-
 .bottom:before {
   transform: rotate(-45deg);
   background: #60b8d4;
@@ -129,7 +122,6 @@ export default {
   transform: rotate(-135deg);
   background: #3745b5;
 }
-
 .center {
   position: absolute;
   width: 400px;
@@ -161,7 +153,6 @@ input[type=submit] {
     color: white;
     cursor: pointer;
   }
-
   input[type=submit]:hover {
     background-color: #50c493;
   }

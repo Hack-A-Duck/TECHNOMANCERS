@@ -22,7 +22,7 @@
             <h4>{{item.name}}</h4>
             <p style="text-align: center"><b>&#8377; {{item.price - ((item.price*item.discount)/100)}}</b>&nbsp; <s>&#8377; {{item.price}}</s> ( <em class="off">{{item.discount}}% OFF</em> )</p>
             <div class="AddToBag">
-                <button style="border: none;background-color: inherit;" @click="addToCart($event, item.id)">{{user.id?"ADD TO BAG":"SIGNIN TO BUY"}}</button>
+                <button style="border: none;background-color: inherit;" @click="addToCart($event, item.id)">{{user.id?"ADD TO BAG":"SIGN IN TO BUY"}}</button>
             </div>
         </div>
 	</div>
@@ -66,7 +66,7 @@ export default {
             const resData = await res.json();
             this.itemDetail = resData.data;
             this.similarItems= resData.data.similarItems;
-            console.log(resData);
+            // console.log(resData);
             this.show= false;
         },
         openDetails(id){
@@ -191,7 +191,7 @@ export default {
             padding: 5px;
             border: 1px solid rgb(182, 171, 171);
             margin: 5px;
-            width: 18%;
+            max-width: 300px;
         }
 
         #suggestion .items h4{

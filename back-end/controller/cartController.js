@@ -30,7 +30,7 @@ exports.getItemsByUser= (req, res, next)=>{
             })
         }
     })
-}
+};
 
 exports.deleteItem= (req, res, next)=>{
     const Q = "delete from cart where id=?";
@@ -42,4 +42,4 @@ exports.deleteItem= (req, res, next)=>{
             })
         }
     })
-}
+};

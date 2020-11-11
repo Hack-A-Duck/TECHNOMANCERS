@@ -1,16 +1,25 @@
 <template>
-    <app-loader v-if="show"></app-loader>
-    <div id="itemList" v-else  style="margin-top: 56px;">
-        <app-alert :msg="alertMsg" :alertType="alertType" v-if="showAlert" class="alert_1"></app-alert>
-        <div class="items" v-for="item in items" :key="item.id">
-            <img :src="item.cover_image" alt="" @click="openDetails(item.id)">
-            <h4>{{item.name}}</h4>
-            <p style="text-align: center"><b>&#8377; {{item.price - ((item.price*item.discount)/100)}}</b>&nbsp; <s>&#8377; {{item.price}}</s> ( <em class="off">{{item.discount}}% OFF</em> )</p>
-            <div class="AddToBag">
-                <button style="border: none;background-color: inherit;" @click="addToCart($event, item.id)">{{user.id?"ADD TO CART":"SIGNIN TO BUY"}}</button>
-            </div>
-        </div>
-    </div>
+  <app-loader v-if="show"></app-loader>
+  <div class="container" v-else style="background-image: url('/src/assets/categories-container.png');">
+<div class="row" style="text-align: center">
+  <div  class="items" v-for="item in items" :key="item.id">
+
+      <div class="col-md-4">
+    <div class="card mb-2">
+    <app-alert :msg="alertMsg" :alertType="alertType" v-if="showAlert" class="alert_1"></app-alert>
+      <img :src="item.cover_image" class="card-img-top" height="250" width="150" alt="" @click="openDetails(item.id)">
+      <h4 class="card-title center-align">{{item.name}}</h4>
+
+      <p class="card-text"><b>&#8377; {{item.price - ((item.price*item.discount)/100)}}</b>&nbsp; <s>&#8377; {{item.price}}</s> ( <em class="off">{{item.discount}}% OFF</em> )</p>
+      <div class="AddToBag">
+          <button class="btn btn-outline-dark " @click="addToCart($event, item.id)">{{user.id?"Add To Cart":"Sign In To Buy"}}</button>
+      </div>
+<br>
+  </div>
+</div>
+</div>
+</div>
+</div>
 </template>
 
 <script>
@@ -24,7 +33,7 @@ export default {
             alertMsg: "",
             alertType: "",
             showAlert: false,
-            buttonName: "ADD TO CART"
+            buttonName: "Add To Cart"
         }
     },
     components: {
@@ -44,13 +53,13 @@ export default {
             const res =await fetch(url);
             const resData = await res.json();
             this.show= false;
-            console.log(resData.data);
+            // console.log(resData.data);
             this.items = resData.data;
         } catch (error) {
-            
+
         }
-            
-        
+
+
 
     },
     methods: {
@@ -111,21 +120,29 @@ export default {
 .alert_1{
     z-index: 200;
 }
-#itemList{
+/* #itemList{
             display: flex;
             flex-wrap: wrap;
             justify-content: space-evenly;
             /* border: 1px solid rgb(182, 171, 171); */
-            background-color: pink;
-            padding: 5px;    
-        }
+
+
+
+.card{
+            width: 20rem;
+            margin-top: 2%;
+            position:relative;
+
+}
+.container{
+  margin-top: 5%;
+  background-size: cover;
+ background-position: center;
+  background-repeat: repeat-y;
+
+}
 
         .items{
-            background-color: white;
-            padding: 5px;
-            border: 1px solid rgb(182, 171, 171);
-            margin: 5px;
-            /* min-width: 24%; */
         }
 
         .items h4{
@@ -137,10 +154,10 @@ export default {
 			margin-top: 5px;
 		}
 
-        .items img{
+      .items  img{
             opacity: 0.85;
-            width: 100%;
-            height: 200px;
+            width: 18rem;
+
         }
 
         .items img:hover{
@@ -153,7 +170,7 @@ export default {
 
         .AddToBag{
             text-align: center;
-            background-color:rgb(211, 211, 211);
+            /* background-color:rgb(211, 211, 211); */
             padding: 5px;
         }
         .AddToBag a {
